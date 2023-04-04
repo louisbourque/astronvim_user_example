@@ -19,7 +19,18 @@ return {
     -- this is useful for naming menus
     ["<leader>b"] = { name = "Buffers" },
     -- quick save
-    -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+    ["<C-s>"] = { ":w!<cr>", desc = "Save File" },
+    ["cp"] = { ':let @+ = expand("%")<CR>', desc = "Copy Path" },
+    [";"] = { ":"},
+    ["<leader>?"] = { ":Telescope keymaps<CR>", desc = "show keymaps" },
+    ["<leader>xc"] = { ":g/console.lo/d<cr>", desc = "Remove console.log" },
+  },
+  i = {
+    -- quick save
+    ["<C-s>"] = { "<ESC>:w!<cr>", desc = "Save File" },
+  },
+  x = {
+    ["<leader>p"] = {'"_dP', desc = "Paste without losing clipboard" },
   },
   t = {
     -- setting a mapping to false will disable it

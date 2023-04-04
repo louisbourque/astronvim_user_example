@@ -18,7 +18,7 @@ return {
   },
 
   -- Set colorscheme to use
-  colorscheme = "astrodark",
+  colorscheme = "catppuccin",
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
@@ -31,7 +31,7 @@ return {
     formatting = {
       -- control auto formatting on save
       format_on_save = {
-        enabled = true, -- enable or disable format on save globally
+        enabled = false, -- enable or disable format on save globally
         allow_filetypes = { -- enable format on save for specified filetypes only
           -- "go",
         },
@@ -42,7 +42,7 @@ return {
       disabled = { -- disable formatting capabilities for the listed language servers
         -- "sumneko_lua",
       },
-      timeout_ms = 1000, -- default format timeout
+      timeout_ms = 7000, -- default format timeout
       -- filter = function(client) -- fully override the default formatting function
       --   return true
       -- end
@@ -50,6 +50,24 @@ return {
     -- enable servers that you already have installed without mason
     servers = {
       -- "pyright"
+    },
+    setup_handlers = {
+      -- add custom handler
+      tsserver = function(_, opts) require("typescript").setup { server = opts } end,
+      rust_analyzer = function(_, opts) require("rust-tools").setup { server = opts } end
+    },
+    -- Add overrides for LSP server settings, the keys are the name of the server
+    config = {
+      tsserver = {
+        init_options = {
+          preferences = {
+            disableSuggestions = true,
+          },
+        },
+      },
+      ["neo-tree"] = {
+        enable_diagnostics = true,
+      },
     },
   },
 
@@ -68,17 +86,14 @@ return {
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
   polish = function()
-    -- Set up custom filetypes
-    -- vim.filetype.add {
-    --   extension = {
-    --     foo = "fooscript",
-    --   },
-    --   filename = {
-    --     ["Foofile"] = "fooscript",
-    --   },
-    --   pattern = {
-    --     ["~/%.config/foo/.*"] = "fooscript",
-    --   },
-    -- }
+    -- remove trailing whitespace
+    -- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    --   pattern = { "*" },
+    --   command = [[%s/\s\+$//e]],
+    -- })
+    vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+      pattern = { "*.js", "*.vue", "*.ts", "*.json" },
+      command = "EslintFixAll",
+    })
   end,
 }
