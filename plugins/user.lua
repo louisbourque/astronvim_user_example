@@ -19,12 +19,12 @@ return {
     config = function() require("surround").setup { mappings_style = "surround" } end,
     lazy = false
   },
-  {
-    "tzachar/cmp-tabnine",
-    build = './install.sh',
-    dependencies = 'hrsh7th/nvim-cmp',
-    lazy = false
-  },
+  -- {
+  --   "tzachar/cmp-tabnine",
+  --   build = './install.sh',
+  --   dependencies = 'hrsh7th/nvim-cmp',
+  --   lazy = false
+  -- },
   {
     "Exafunction/codeium.vim",
     -- config = function()
