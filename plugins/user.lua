@@ -63,6 +63,7 @@ return {
       require("catppuccin").setup()
     end,
   },
+  { 'wuelnerdotexe/vim-astro', lazy = false },
   {
     -- override nvim-autopairs plugin
     "hrsh7th/nvim-cmp",
@@ -85,5 +86,13 @@ return {
       -- return the new table to be used
       return opts
     end,
+  },
+  {
+    'saecki/crates.nvim',
+    dependencies = {  'nvim-lua/plenary.nvim' },
+    config = function()
+        require('crates').setup()
+    end,
+    lazy = false
   },
 }

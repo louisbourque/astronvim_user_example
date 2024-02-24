@@ -93,8 +93,14 @@ return {
     --   command = [[%s/\s\+$//e]],
     -- })
     vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-      pattern = { "*.js", "*.vue", "*.ts", "*.json" },
+      pattern = { "*.js", "*.vue", "*.ts" },
       command = "EslintFixAll",
     })
+    vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+      pattern = { "*/locales/**.json" },
+      command = "Format",
+    })
+    vim.api.nvim_set_option("fixendofline", false)
+    -- :set nofixeol
   end,
 }
